@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration Form</title>
+  <style>
+    @import url("https://fonts.cdnfonts.com/css/poppins");
+
+    body {
+      margin: 0;
+      padding: 0;
+      max-height: 100vh;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    main {
+      padding: 1rem;
+      display: grid;
+      place-items: center;
+      background: #aaa;
+    }
+
+    h1 {
+      color: rgb(40, 245, 166);
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .registrationForm {
+      background: rgba(68, 68, 68, 0.79);
+      padding: .2rem 2rem;
+      border: 1px solid #444;
+      border-radius: 10px;
+      max-width: 500px;
+      box-shadow: 0 2px 5px #333;
+      transition: all 1s ease;
+    }
+
+    .registrationForm:hover {
+      box-shadow: 0 2px 5px #ddd;
+    }
+
+    .formcheck {
+      /* position: relative; */
+      margin-bottom: 1rem;
+    }
+
+    .formcheck label {
+      /* position: absolute; */
+      top: 0;
+      left: 0;
+      padding: 0.5rem;
+      transition: 0.3s ease;
+      pointer-events: none;
+      /* background: white; */
+    }
+
+    .formcheck input {
+      width: calc(100% - 1rem);
+      padding: 0.6rem;
+      border: 1px solid #bbb;
+      border-radius: 10px;
+    }
+
+    #togglePassword {
+      margin-left: 10px;
+    }
+
+    #togglePassword {
+      cursor: pointer;
+    }
+
+    .formLinks {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .formLinks button {
+      all: unset;
+      cursor: pointer;
+      padding: 0.5rem;
+      font-weight: bold;
+      border-radius: 8px;
+      background: rgb(78, 236, 93);
+      width: fit-content;
+      margin: 0.2rem auto;
+    }
+
+    a {
+      text-align: center;
+      color: rgb(10, 232, 110);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <form method="post" action="/register" class="registrationForm" id="registerForm">
+      <h1>Welcome! Let's get started.</h1>
+      <p>Fill in your details below</p>
+      <br />
+      <div class="formcheck">
+        <label for="name"> Name </label>
+        <input type="text" id="name" name="username" required />
+      </div>
+      <div class="formcheck">
+        <label for="email"> Email </label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="formcheck">
+        <label for="password"> Password </label>
+        <input type="password" id="password" name="password" autocomplete="new-password" required />
+      </div>
+      <div class="formcheck">
+        <label for="confirmPassword"> Confirm Password </label>
+        <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" required />
+      </div>
+
+      <div style="margin-bottom: 1rem">
+        <input type="checkbox" id="togglePassword" />
+        <label for="togglePassword">Show Password</label>
+      </div>
+      <div class="formLinks">
+        <button type="submit" id="formButton">
+          REGISTER
+        </button>
+        <p>Already have an account? <a href="/login">Login</a></p>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    // Get the form and the form fields
+    const form = document.getElementById("registrationForm");
+    const fullName = document.getElementById("fullName");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+
+    // Add a submit event listener to the form
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting
+
+      // Get the values of the form fields
+      const user = {
+        fullName: fullName.value,
+        email: email.value,
+        password: password.value,
+        confirmPassword: confirmPassword.value
+      };
+
+      // Store the user data in the localStorage
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Redirect the user to the sales page
+      window.location.href = "./sales.html";
+    });
+
+
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    document
+      .getElementById("togglePassword")
+      .addEventListener("change", function (e) {
+        const passwordInput = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirmPassword");
+        if (e.target.checked) {
+          passwordInput.type = "text";
+          confirmPassword.type = "text";
+        } else {
+          passwordInput.type = "password";
+          confirmPassword.type = "password";
+        }
+      });
+  </script>
+</body>
+
+</html>
