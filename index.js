@@ -155,6 +155,7 @@ app.post("/login", async (req, res) => {
         res.redirect("/sales");
       } else {
         console.log("Incorrect password");
+        res.redirect('back')
       }
     } else {
       console.log("User doesn't exist or has no password");
